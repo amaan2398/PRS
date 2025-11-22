@@ -45,7 +45,8 @@ Build a model that will improve the recommendations given to the users given the
 
 ### Prerequisites
 
-- Python 3.9 or later
+- Python 3.12 or later
+- [uv](https://github.com/astral-sh/uv) installed
 
 ### Installation
 
@@ -57,30 +58,34 @@ Build a model that will improve the recommendations given to the users given the
     ```sh
     cd PRS
     ```
-3.  Create a virtual environment:
+3.  Install dependencies using `uv`. This project uses separate environments for notebooks and the application.
+
+    **For the Notebook Environment (Research & Experimentation):**
+
     ```sh
-    python -m venv venv
+    uv sync --group notebook
     ```
-4.  Activate the virtual environment:
-    -   On Windows:
-        ```sh
-        venv\Scripts\activate
-        ```
-    -   On macOS and Linux:
-        ```sh
-        source venv/bin/activate
-        ```
-5.  Install the required dependencies:
+
+    **For the Application Environment (Frontend & Backend):**
+
     ```sh
-    pip install -r requirements.txt
+    uv sync --group app
     ```
+
+## Running Notebooks
+
+To start the Jupyter Notebook server, make sure you have synced the `notebook` group, then use:
+
+```sh
+uv run --group notebook jupyter notebook
+```
 
 ## Running the application
 
-To run the FastAPI application, use the following command:
+To run the FastAPI application, make sure you have synced the `app` group, then use:
 
 ```sh
-uvicorn src.main:app --reload
+uv run uvicorn src.main:app --reload
 ```
 
 ## Running Tests
@@ -88,5 +93,5 @@ uvicorn src.main:app --reload
 To run the tests, use the following command:
 
 ```sh
-python -m unittest discover tests
+uv run python -m unittest discover tests
 ```

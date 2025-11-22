@@ -1,0 +1,24 @@
+[project]
+name = "prs"
+version = "0.1.0"
+description = "Project with separate environments for notebooks and app"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas",
+    "scikit-learn",
+    "numpy",
+    "nltk",
+    "xgboost",
+]
+
+[dependency-groups]
+notebook = [
+    "notebook",
+    "matplotlib",
+    "seaborn",
+]
+app = [
+    "fastapi",
+    "uvicorn",
+]

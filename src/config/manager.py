@@ -1,12 +1,3 @@
-
-"""
-This class will handle the configuration of the project
-Where notebook can use this to store data to some config file, 
-    like missing columns processing columns date columns etc
-    OR model config or model to pickel file 
-Along with stroing it will be used for retuival if need to use 
-"""
- 
 import json
 import pickle
 import os
@@ -44,7 +35,13 @@ class ConfigManager:
         # Initialize empty config if file doesn't exist
         if not os.path.exists(self.config_path):
             self._save_json({})
+    
+    def __str__(self):
+        return f"ConfigManager(config_path={self.config_path}, model_path={self.model_path})"
 
+    def __repr__(self):
+        return self.__str__()
+    
     def _load_json(self) -> Dict[str, Any]:
         """Helper method to load the JSON configuration file."""
         try:

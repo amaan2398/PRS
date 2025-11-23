@@ -1,0 +1,173 @@
+{
+    "data": {
+        "raw": "dataset.csv",
+        "cleaned": "cleaned_dataset.csv",
+        "processed": "processed_dataset.csv"
+    },
+    "text_processing": {
+        "brand": {
+            "direct_map": {
+                "lionsgate home entertainment": "lionsgate",
+                "universal home entertainment": "universal",
+                "head and shoulders": "head & shoulders",
+                "lay's": "lays",
+                "ben and jerry's": "ben & jerry's",
+                "yes to carrots": "yes to",
+                "yes to grapefruit": "yes to",
+                "l oreal paris": "loreal paris",
+                "l'oreal paris": "loreal paris",
+                "chester's": "cheetos",
+                "chester": "cheetos"
+            },
+            "heuristic_rules": [
+                [
+                    "^sony",
+                    "sony"
+                ],
+                [
+                    "^warner",
+                    "warner bro"
+                ],
+                [
+                    "universal",
+                    "universal"
+                ],
+                [
+                    "^newman's own",
+                    "newman's own"
+                ],
+                [
+                    "^burt's",
+                    "burts bees"
+                ],
+                [
+                    "johnson",
+                    "johnson"
+                ],
+                [
+                    "toy story",
+                    "disney"
+                ],
+                [
+                    "disney",
+                    "disney"
+                ],
+                [
+                    "kelloggs",
+                    "kelloggs"
+                ],
+                [
+                    "pantene",
+                    "pantene"
+                ],
+                [
+                    "hormel",
+                    "hormel"
+                ],
+                [
+                    "century fox",
+                    "20th century fox"
+                ],
+                [
+                    "l'oreal",
+                    "loreal"
+                ]
+            ]
+        },
+        "manufacturer": {
+            "direct_map": {
+                "lionsgate home entertainment": "lionsgate",
+                "universal home entertainment": "universal",
+                "head and shoulders": "head & shoulders",
+                "lay's": "lays",
+                "ben and jerry's": "ben & jerry's",
+                "yes to carrots": "yes to",
+                "yes to grapefruit": "yes to",
+                "l oreal paris": "loreal paris",
+                "l'oreal paris": "loreal paris",
+                "chester's": "cheetos",
+                "chester": "cheetos"
+            },
+            "heuristic_rules": [
+                [
+                    "^sony",
+                    "sony"
+                ],
+                [
+                    "^warner",
+                    "warner bro"
+                ],
+                [
+                    "universal",
+                    "universal"
+                ],
+                [
+                    "^newman's own",
+                    "newman's own"
+                ],
+                [
+                    "^burt's",
+                    "burts bees"
+                ],
+                [
+                    "johnson",
+                    "johnson"
+                ],
+                [
+                    "toy story",
+                    "disney"
+                ],
+                [
+                    "disney",
+                    "disney"
+                ],
+                [
+                    "kelloggs",
+                    "kelloggs"
+                ],
+                [
+                    "pantene",
+                    "pantene"
+                ],
+                [
+                    "hormel",
+                    "hormel"
+                ],
+                [
+                    "century fox",
+                    "20th century fox"
+                ],
+                [
+                    "l'oreal",
+                    "loreal"
+                ]
+            ]
+        },
+        "name": {
+            "direct_map": {},
+            "heuristic_rules": []
+        }
+    },
+    "category_imputation": {
+        "delimiter": ",",
+        "replacements": [
+            {
+                "pattern": "-",
+                "replacement": " "
+            },
+            {
+                "pattern": "&",
+                "replacement": "and"
+            }
+        ],
+        "default_category": ""
+    },
+    "missing_cols": [
+        "reviews_userProvince",
+        "reviews_userCity"
+    ],
+    "invalid_cols": [
+        "id",
+        "reviews_didPurchase"
+    ]
+}

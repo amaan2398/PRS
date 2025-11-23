@@ -1,46 +1,45 @@
 import pandas as pd
 from pathlib import Path
+from typing import Dict, Any, Union
 
-def load_data(file_path, **kwargs):
+class DataLoader:
     """
-    Loads data from a CSV file into a pandas DataFrame.
-
-    Args:
-        file_path: The absolute or relative path to the CSV file.
-        **kwargs: Additional keyword arguments to pass to pandas.read_csv.
-
-    Returns:
-        The loaded pandas DataFrame.
+    Provides static methods for robust, defensible data loading operations.
     """
-    try:
-        # Use Path for robust file handling
-        data_path = Path(file_path)
-        print(f"Loading data from {data_path}")
-        return pd.read_csv(data_path, **kwargs)
-    except FileNotFoundError:
-        print(f"Error: File not found at {file_path}")
-        raise
-    except pd.errors.EmptyDataError:
-        print(f"Error: No data to parse from file {file_path}")
-        raise
+    @staticmethod
+    def load_csv_data(file_path: Union[str, Path], **kwargs: Dict[str, Any]):
+        """
+        Loads data from a CSV file into a pandas DataFrame.
 
-# def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
-#     """
-#     Performs basic data preprocessing (e.g., cleaning, feature engineering).
+        Args:
+            file_path: The absolute or relative path to the CSV file.
+            **kwargs: Additional keyword arguments to pass to pandas.read_csv.
 
-#     Args:
-#         df: The input pandas DataFrame.
+        Returns:
+            The loaded pandas DataFrame.
+        """
+        try:
+            # Use Path for robust file handling and strict type checking
+            data_path = Path(file_path)
 
-#     Returns:
-#         The processed pandas DataFrame.
-#     """
-#     # 1. Drop duplicates
-#     df = df.drop_duplicates()
+            if not data_path.exists():
+                 raise FileNotFoundError(f"File not found at: {data_path}")
+            
+            print(f"Loading data from {data_path.resolve()}")
+            data_frame = pd.read_csv(data_path, **kwargs)
+            print(f"Data successfully loaded. Shape: {data_frame.shape}")
 
-#     # 2. Handle missing values (Example)
-#     # df['reviews_rating'].fillna(df['reviews_rating'].median(), inplace=True)
-
-#     # 3. Type conversion (Example)
-#     # df['reviews_date'] = pd.to_datetime(df['reviews_date'])
-
-#     return df.copy() # Return a copy to avoid SettingWithCopyWarning
+            return data_frame
+        except FileNotFoundError as e:
+            # Re-raise FileNotFoundError with the original error
+            raise e
+            
+        except pd.errors.EmptyDataError:
+            # Handle empty file
+            print(f"Error: No data to parse from file: {file_path}")
+            raise
+            
+        except Exception as e:
+            # Catch other potential I/O or parsing errors (e.g., permission denied)
+            print(f"An unexpected error occurred during file loading: {e}")
+            raise IOError("Failed to read CSV due to an unexpected IO error.")

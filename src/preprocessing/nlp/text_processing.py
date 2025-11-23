@@ -3,20 +3,18 @@ import unicodedata
 from typing import List, Optional, Tuple, Dict, Any
 import pandas as pd
 import spacy
-from src.config.manager import ConfigManager
 from bs4 import BeautifulSoup
 import contractions
 from spellchecker import SpellChecker
 
-# Try importing tqdm for progress bars
+from preprocessing.nlp import NlpEngine
+from config.manager import ConfigManager
+
 try:
     from tqdm import tqdm
     HAS_TQDM = True
 except ImportError:
     HAS_TQDM = False
-
-
-
 
 class TextProcessor:
     """Handles text normalization using SpaCy's efficient pipeline."""
@@ -38,7 +36,8 @@ class TextProcessor:
             text = text.lower()
 
         # 2. Remove HTML
-        text = BeautifulSoup(text, "lxml").get_text()
+        if bool(re.search(r'<[^>]+>', text)):
+            text = BeautifulSoup(text, "lxml").get_text()
 
         # 3. Expand contractions
         text = contractions.fix(text)

@@ -17,7 +17,7 @@ class ConfigManager:
         model_path (str): Directory path where models are stored.
     """
 
-    def __init__(self, config_path: str = "src/config.json", model_path: str = "models/"):
+    def __init__(self, config_path: str = "config.json", model_path: str = "models/"):
         """
         Initializes the ConfigManager with paths for config and models.
 

@@ -98,7 +98,7 @@ class DataCleaner:
         # It handles mixed formats and errors='coerce' turns junk/invalid dates into NaT (Not a Time)
         # We avoid the slow df[col].apply(lambda...) call from the original code
         df_processed[parsed_col_name] = pd.to_datetime(
-            df_processed[date_col], 
+            df_processed[date_col].str.strip().apply(lambda x: x[:10] if isinstance(x, str) else None), 
             errors='coerce'
         )
 

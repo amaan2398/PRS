@@ -6,13 +6,8 @@ from typing import Dict, Optional
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
-try:
-    from config.manager import ConfigManager
-    from text_processing.TextProcessing import clean_and_split_str
-except ImportError:
-    print("Importing ConfigManager from parent directory")
-    from ...config.manager import ConfigManager
-    from ..text_processing.TextProcessing import clean_and_split_str
+from config.manager import ConfigManager
+from preprocessing.nlp.text_processing import TextProcessor
 
 class CategoryFrequencyImputer(BaseEstimator, TransformerMixin):
     """
@@ -59,7 +54,7 @@ class CategoryFrequencyImputer(BaseEstimator, TransformerMixin):
 
         # Apply the cleaning and splitting function
         # This is O(N * S) where N=rows, S=avg string length, unavoidable with custom parsing
-        all_categories_list = series_filled.apply(lambda ctg: clean_and_split_str(ctg, delimiter=self._delimiter, replacements=self._replacements))
+        all_categories_list = series_filled.apply(lambda ctg: TextProcessor.clean_and_split_str(ctg, delimiter=self._delimiter, replacements=self._replacements))
 
         # Flatten the list of lists
         # O(N*C) where C=avg categories per row. Flattening with generator expression is fast.
@@ -117,18 +112,19 @@ class CategoryFrequencyImputer(BaseEstimator, TransformerMixin):
             return self._default_category
 
         # Clean and split the categories
-        cleaned_list =  clean_and_split_str(categories_str, delimiter=self._delimiter, replacements=self._replacements)
+        cleaned_list =  TextProcessor.clean_and_split_str(categories_str, delimiter=self._delimiter, replacements=self._replacements)
 
         # If no valid categories, return default
         if not cleaned_list:
             return self._default_category
 
-        # Find the most frequent category
-        most_common = self._category_frequency_map.most_common(1)
-        if most_common:
-            return most_common[0][0]
-        else:
-            return self._default_category
+        max_count = -1
+        final_category = self._default_category
+        for ctg in cleaned_list:
+            if (ctg in self._category_frequency_map) and (self._category_frequency_map[ctg] > max_count):
+                max_count = self._category_frequency_map[ctg]
+                final_category = ctg
+        return final_category
     
     def fit_transform(self, X: pd.DataFrame, y: Optional[pd.Series] = None) -> pd.DataFrame:
         """

@@ -169,5 +169,19 @@
     "invalid_cols": [
         "id",
         "reviews_didPurchase"
+    ],
+    "cols_to_drop_after_cleaning": [
+        "brand_clean",
+        "manufacturer_clean",
+        "name_clean",
+        "category_by_first_phrase_in_col",
+        "category_by_globle_counter_max",
+        "reviews_title_cleaned",
+        "reviews_text_cleaned"
+    ],
+    "dropna_cols": [
+        "reviews_username",
+        "reviews_text",
+        "user_sentiment"
     ]
 }

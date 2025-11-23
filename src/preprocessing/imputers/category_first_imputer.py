@@ -1,16 +1,13 @@
 import collections
 from typing import List, Dict, Optional
 import re
+import os
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
-try:
-    from config.manager import ConfigManager
-    from text_processing.TextProcessing import clean_and_split_str
-except ImportError:
-    print("Importing ConfigManager from parent directory")
-    from ...config.manager import ConfigManager
-    from ...text_processing.TextProcessing import clean_and_split_str
+from config.manager import ConfigManager
+from preprocessing.nlp.text_processing import TextProcessor
+
 
 class CategoryFirstImputer(BaseEstimator, TransformerMixin):
     """
@@ -43,7 +40,7 @@ class CategoryFirstImputer(BaseEstimator, TransformerMixin):
         Returns:
             CategoryFirstImputer: The fitted imputer.
         """
-        if y is not None:
+        if y is None:
             raise ValueError("y is not used in this imputer.")
         return self
     
@@ -81,7 +78,7 @@ class CategoryFirstImputer(BaseEstimator, TransformerMixin):
             return self._default_category
 
         # Clean and split the categories
-        cleaned_list =  clean_and_split_str(categories_str, delimiter=self._delimiter, replacements=self._replacements)
+        cleaned_list =  TextProcessor.clean_and_split_str(categories_str, delimiter=self._delimiter, replacements=self._replacements)
 
         # If no valid categories, return default
         if not cleaned_list:

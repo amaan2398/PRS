@@ -16,6 +16,7 @@ class NotebookInitializer:
     
     # Instance attributes
     root_dir: Optional[Path] = None
+    src_dir: Optional[Path] = None
     data_dir: Final[Path]
     raw_data_dir: Final[Path]
     processed_data_dir: Final[Path]
@@ -47,7 +48,8 @@ class NotebookInitializer:
             print(f"ROOT_DIR already set to: {self.root_dir}")
 
         # Define directory paths
-        self.data_dir = self.root_dir / 'data'
+        self.src_dir = self.root_dir / "src"
+        self.data_dir = self.root_dir / "data"
         self.raw_data_dir = self.data_dir / 'raw'
         self.processed_data_dir = self.data_dir / 'processed'
 
@@ -59,12 +61,12 @@ class NotebookInitializer:
         print(f"Original working directory: {os.getcwd()}")
         
         # Change the current working directory to the project root
-        os.chdir(self.root_dir)
+        os.chdir(self.src_dir)
         
         print(f"Current working directory changed to the project root: {os.getcwd()}")
         
         # Initialize configuration manager
-        from src.config.manager import ConfigManager
+        from config.manager import ConfigManager
         self.config = ConfigManager()
         
         # Verify and report the directory structure

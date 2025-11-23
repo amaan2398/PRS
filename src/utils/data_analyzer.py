@@ -1,4 +1,5 @@
 import re
+import random
 from typing import List, Optional, Union, Dict, Any
 
 import pandas as pd
@@ -97,8 +98,8 @@ class DataAnalyzer:
         # Add unique count information (Vectorized Pandas)
         missing_info['Unique Values Count'] = df.nunique()
         
-        # Filter out rows with zero missing values and sort
-        missing_info = missing_info[missing_info['Missing Count'] > 0]
+        # Filter out rows with threshold missing % and sort
+        missing_info = missing_info[missing_info['Missing Percentage (%)'] >= reporting_threshold_percent]
         missing_info = missing_info.sort_values(by='Missing Count', ascending=False)
 
         print("📊 Missing Values Report")

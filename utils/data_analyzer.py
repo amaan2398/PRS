@@ -63,7 +63,6 @@ class DataAnalyzer:
                 print(distribution_df.to_markdown(numalign="left", stralign="left"))
             else:
                 print(distribution_df.head(limit).to_markdown(numalign="left", stralign="left"))
-            return None
 
     @staticmethod
     def analyze_missing_data(

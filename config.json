@@ -177,7 +177,8 @@
         "category_by_first_phrase_in_col",
         "category_by_globle_counter_max",
         "reviews_title_cleaned",
-        "reviews_text_cleaned"
+        "reviews_text_cleaned",
+        "reviews_date_cleaned"
     ],
     "dropna_cols": [
         "reviews_username",

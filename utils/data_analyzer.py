@@ -16,7 +16,8 @@ class DataAnalyzer:
         df: pd.DataFrame, 
         column_name: str, 
         dropna: bool = False, 
-        return_distribution: bool = False
+        return_distribution: bool = False,
+        limit: int = -1
     ) -> Union[pd.DataFrame, None]:
         """
         Calculates and displays the count and percentage distribution of unique values in a column.
@@ -58,8 +59,10 @@ class DataAnalyzer:
             return distribution_df
         else:
             print("Value Counts Distribution:")
-            # Use print.to_markdown for clean output
-            print(distribution_df.to_markdown(numalign="left", stralign="left"))
+            if limit == -1:
+                print(distribution_df.to_markdown(numalign="left", stralign="left"))
+            else:
+                print(distribution_df.head(limit).to_markdown(numalign="left", stralign="left"))
             return None
 
     @staticmethod

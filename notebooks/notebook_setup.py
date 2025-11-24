@@ -48,7 +48,6 @@ class NotebookInitializer:
             print(f"ROOT_DIR already set to: {self.root_dir}")
 
         # Define directory paths
-        self.src_dir = self.root_dir / "src"
         self.data_dir = self.root_dir / "data"
         self.raw_data_dir = self.data_dir / 'raw'
         self.processed_data_dir = self.data_dir / 'processed'
@@ -61,7 +60,7 @@ class NotebookInitializer:
         print(f"Original working directory: {os.getcwd()}")
         
         # Change the current working directory to the project root
-        os.chdir(self.src_dir)
+        os.chdir(self.root_dir)
         
         print(f"Current working directory changed to the project root: {os.getcwd()}")
         

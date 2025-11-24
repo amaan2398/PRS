@@ -28,8 +28,9 @@ notebook = [
     "matplotlib",
     "seaborn",
     "ipykernel>=7.1.0",
+    "debugpy>=1.8.17",
+    "scikit-learn>=1.7.2",
 ]
 app = [
-    "fastapi",
-    "uvicorn",
+    "streamlit>=1.51.0",
 ]

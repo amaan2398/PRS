@@ -1,9 +1,9 @@
-from .data_loader import DataLoader
+from .data_file_manager import DataFileManager
 from .data_analyzer import DataAnalyzer
 from .data_cleaner import DataCleaner
 
 __all__ = [
-    'DataLoader',
+    'DataFileManager',
     'DataAnalyzer',
     'DataCleaner'
 ]

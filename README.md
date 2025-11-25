@@ -13,29 +13,39 @@ Build a model that will improve the recommendations given to the users given the
 ## Project Structure
 
 ```
-├── .github/workflows/ci.yml
 ├── data/
 │   ├── raw/
-│   │   └── dataset.csv
-│   ├── processed/
-│   │   └── intermediate_dataset.csv
-│   └── frontend/
-│       └── config.json
+│   │   ├── dataset.csv
+│   │   └── Data+Attribute+Description.csv
+│   └── processed/
+│       ├── df_cleaned.csv
+│       └── df_final.csv
 ├── notebooks/
-│   └── initial_analysis.ipynb
-├── src/
+│   ├── 01_data_cleaning.ipynb
+│   ├── 02_data_exploration.ipynb
+│   ├── 03_data_preprocessing.ipynb
+│   ├── 04_sentiment_model_building.ipynb
+│   ├── 05_recommendation_model_building.ipynb
+│   └── notebook_setup.py # Setup notebook environment for running notebooks
+├── app.py
+├── models/
 │   ├── __init__.py
-│   ├── main.py
-│   ├── models/
+│   └── recommendation_model.py
+├── config/
+│   ├── __init__.py
+│   └── manager.py
+├── utils/
+│   ├── __init__.py
+│   └── data_file_manager.py
+├── preprocessing/
+│   ├── imputers/
 │   │   ├── __init__.py
-│   │   └── recommendation_model.py
-│   └── utils/
-│       ├── __init__.py
-│       └── data_loader.py
-├── tests/
-│   ├── __init__.py
-│   ├── test_models.py
-│   └── test_utils.py
+│   │   ├── category_first_imputer.py
+│   │   └── category_frequency_imputer.py
+│   ├── nlp/
+│   │   ├── __init__.py
+│   │   ├── nlp_engine.py
+│   │   └── text_processing.py
 ├── .gitignore
 ├── LICENSE
 └── README.md
@@ -88,10 +98,10 @@ To run the FastAPI application, make sure you have synced the `app` group, then 
 uv run uvicorn src.main:app --reload
 ```
 
-## Running Tests
+<!-- ## Running Tests
 
 To run the tests, use the following command:
 
 ```sh
 uv run python -m unittest discover tests
-```
+``` -->

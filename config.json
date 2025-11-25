@@ -1,9 +1,4 @@
 {
-    "data": {
-        "raw": "dataset.csv",
-        "cleaned": "cleaned_dataset.csv",
-        "processed": "processed_dataset.csv"
-    },
     "text_processing": {
         "brand": {
             "direct_map": {

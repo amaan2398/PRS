@@ -28,7 +28,9 @@ class DataFileManager:
             print(f"Loading data from {data_path.resolve()}")
             data_frame = pd.read_csv(data_path, **kwargs)
             print(f"Data successfully loaded. Shape: {data_frame.shape}")
-
+            # Basic cleaning: ensure required columns exist and convert rating to numeric
+            if "reviews_rating" in data_frame.columns:
+                data_frame["reviews_rating"] = pd.to_numeric(data_frame["reviews_rating"], errors="coerce")
             return data_frame
         except FileNotFoundError as e:
             # Re-raise FileNotFoundError with the original error

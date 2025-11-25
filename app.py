@@ -5,7 +5,7 @@ Run: streamlit run app.py
 """
 import streamlit as st
 import pandas as pd
-from data_loader import load_data
+from utils.data_file_manager import DataFileManager
 from recommender import ItemBasedRecommender
 
 # --- Page config & title
@@ -23,9 +23,8 @@ st.markdown(
 # with st.sidebar:
 #     st.header("Data")
 #     st.caption("The app expects a CSV with columns including 'name' and 'reviews_username' and 'reviews_rating'.")
-uploaded = None
 csv_path = "data/processed/df_cleaned.csv"  # default local path
-df = load_data(csv_path=csv_path, uploaded_file=uploaded)
+df = DataFileManager.load_csv_data(csv_path=csv_path)
 
 if df is None or df.empty:
     st.warning("No data available. Please upload a CSV or place 'data/processed/df_cleaned.csv' in the project folder.")

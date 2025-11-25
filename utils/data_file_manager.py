@@ -1,4 +1,5 @@
 import pandas as pd
+import pickle
 from pathlib import Path
 from typing import Dict, Any, Union
 
@@ -83,3 +84,56 @@ class DataFileManager:
             True if the file exists, False otherwise.
         """
         return Path(file_path).exists()
+    
+    @staticmethod
+    def load_pickle_file(file_path: Union[str, Path]) -> Any:
+        """
+        Loads a pickle file from the specified path.
+
+        Args:
+            file_path: The absolute or relative path to the pickle file.
+
+        Returns:
+            The loaded object.
+        """
+        try:
+            # Use Path for robust file handling and strict type checking
+            data_path = Path(file_path)
+
+            if not DataFileManager.exists(data_path):
+                raise FileNotFoundError(f"File not found at: {data_path}")
+
+            print(f"Loading pickle file from {data_path.resolve()}")
+            with open(data_path, "rb") as f:
+                return pickle.load(f)
+        except FileNotFoundError as e:
+            # Re-raise FileNotFoundError with the original error
+            raise e
+        except Exception as e:
+            # Catch other potential I/O or loading errors (e.g., permission denied)
+            print(f"An unexpected error occurred during file loading: {e}")
+            raise IOError("Failed to load pickle file due to an unexpected IO error.")
+    
+    @staticmethod
+    def save_pickle_file(file_path: Union[str, Path], obj: Any):
+        """
+        Saves an object to a pickle file.
+
+        Args:
+            file_path: The absolute or relative path to the pickle file.
+            obj: The object to save.
+
+        Returns:
+            None
+        """
+        try:
+            # Use Path for robust file handling and strict type checking
+            data_path = Path(file_path)
+
+            print(f"Saving pickle file to {data_path.resolve()}")
+            with open(data_path, "wb") as f:
+                pickle.dump(obj, f)
+        except Exception as e:
+            # Catch other potential I/O or saving errors (e.g., permission denied)
+            print(f"An unexpected error occurred during file saving: {e}")
+            raise IOError("Failed to save pickle file due to an unexpected IO error.")

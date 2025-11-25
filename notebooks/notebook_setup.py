@@ -51,6 +51,7 @@ class NotebookInitializer:
         self.data_dir = self.root_dir / "data"
         self.raw_data_dir = self.data_dir / 'raw'
         self.processed_data_dir = self.data_dir / 'processed'
+        self.models_dir = self.root_dir / "models"
 
 
     def setup_environment(self) -> None:
@@ -79,3 +80,4 @@ class NotebookInitializer:
         print(f"📥 Raw Data Directory: {self.raw_data_dir}")
         print(f"📤 Processed Data Directory: {self.processed_data_dir}")
         print(f"⚙️ Config Manager: {self.config}")
+        print(f"⚙️ Models Directory: {self.models_dir}")

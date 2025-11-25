@@ -21,6 +21,7 @@ dependencies = [
     "pyspellchecker>=0.8.3",
     "pylance>=0.39.0",
     "wordcloud>=1.9.4",
+    "lightgbm>=4.6.0",
 ]
 
 [dependency-groups]

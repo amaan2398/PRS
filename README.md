@@ -71,12 +71,30 @@ The system recommends products based on:
 
 ## Setup and Usage
 
+### Setup
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Before you begin
+
+Run following command for the first time:
+
+```bash
+venv\Scripts\activate
+python download_models.py
+```
+
 1.  **Install Dependencies**:
     Ensure you have the required Python packages installed (pandas, numpy, streamlit, scikit-learn, xgboost, lightgbm).
 
 2.  **Run the Application**:
 
     ```bash
+    venv\Scripts\activate
     streamlit run app.py
     ```
 

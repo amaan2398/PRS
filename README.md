@@ -12,22 +12,51 @@ The system recommends products based on:
 ## Project Structure
 
 ```
-d:\Projects\PRS\
-├── app.py                      # Main Streamlit application entry point
-├── config.json                 # Configuration file
-├── recommenders/               # Recommendation logic
-│   ├── user_based.py           # User-User CF implementation (Active)
-│   └── item_based.py           # Item-Item CF implementation (Legacy)
-├── sentiment/                  # Sentiment analysis logic
-│   └── analyzer.py             # Sentiment Analyzer using Logistic Regression
-├── utils/                      # Utility functions
-│   └── data_file_manager.py    # Data loading and saving
-├── transformers/               # Custom Scikit-learn transformers
-├── models/                     # Pre-trained ML models (Pickle files)
-├── data/                       # Dataset directory
-│   └── processed/
-│       └── df_final.csv        # Final processed dataset
-└── notebooks/                  # Jupyter notebooks for training and analysis
+├── app.py                                                  # Main Streamlit application entry point
+├── config/                                                 # Configuration files
+│   ├── __init__.py                                         # Initialization file
+│   └── manager.py                                          # Manager class for handling app state
+├── config.json                                             # Configuration file
+├── recommenders/                                           # Recommendation logic
+│   ├── __init__.py                                         # Initialization file
+│   ├── user_based.py                                       # User-User CF implementation (Active)
+│   └── item_based.py                                       # Item-Item CF implementation (Legacy)
+├── sentiment/                                              # Sentiment analysis logic
+│   ├── __init__.py                                         # Initialization file
+│   └── analyzer.py                                         # Sentiment Analyzer using Logistic Regression
+├── preprocessing/                                          # Data preprocessing logic
+│   ├── imputers/                                           # Imputer logic
+│   │   ├── __init__.py                                     # Initialization file
+│   │   ├── manufacturer_imputer.py                         # Manufacturer imputer
+│   │   ├── category_frequency_imputer.py                   # Category frequency imputer
+│   │   └── category_first_imputer.py                       # Category first imputer
+│   ├── nlp/                                                # NLP logic
+│   │   ├── __init__.py                                     # Initialization file
+│   │   ├── nlp_engine.py                                   # NLP engine
+│   │   └── text_processing.py                              # Text processing
+│   └── __init__.py                                         # Initialization file
+├── utils/                                                  # Utility functions
+│   ├── data_analyzer.py                                    # Data analyzer
+│   ├── data_cleaner.py                                     # Data cleaner
+│   └── data_file_manager.py                                # Data loading and saving
+├── transformers/                                           # Custom Scikit-learn transformers
+│   ├── target_encoder.py                                   # Target encoder
+│   ├── temporal_features.py                                # Temporal features
+│   └── text_stats.py                                       # Text stats
+├── models/                                                 # Pre-trained ML models (Pickle files)
+├── data/                                                   # Dataset directory
+│   ├── processed/
+│   │   ├── df_cleaned.csv                                  # Cleaned dataset
+│   │   └── df_final.csv                                    # Final processed dataset
+│   └── raw/
+│       ├── Data+Attribute+Description.csv                  # Raw dataset
+│       └── dataset.csv                                     # Raw dataset
+└── notebooks/                                              # Jupyter notebooks for training and analysis
+    ├── notebook_setup.py                                   # Notebook setup script
+    ├── 01_data_cleaning_and_preprocessing.ipynb            # Data preprocessing notebook
+    ├── 02_exploratory_data_analysis.ipynb                  # Exploratory data analysis notebook
+    ├── 03_feature_extraction_and_sentiment_model.ipynb     # Feature extraction and sentiment model
+    └── 04_recommendation_system.ipynb                      # Recommendation system notebook
 ```
 
 ## Key Features
@@ -53,19 +82,3 @@ d:\Projects\PRS\
     - Adjust the **Number of products from CF (k)** slider to control the candidate pool size.
     - Adjust the **Final recommendations (n)** slider to control how many top products to display.
     - Click **Get Recommendations**.
-
-## Models
-
-The system uses the following pre-trained models located in `models/`:
-
-- `recommendation/user_similarity_full.pkl`: User-User similarity matrix.
-- `recommendation/user_item_matrix_full.pkl`: User-Item rating matrix.
-- `best_model.pkl`: Logistic Regression model for sentiment classification.
-- `feature_pipeline.pkl`: TF-IDF and feature engineering pipeline.
-
-## Notebooks
-
-The `notebooks/` directory contains the research and training code:
-
-- `03_feature_extraction_and_sentiment_model.ipynb`: Sentiment model training and evaluation.
-- `04_recommendation_system.ipynb`: Collaborative filtering model development and comparison.

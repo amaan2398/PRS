@@ -29,4 +29,4 @@ EXPOSE 8501
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health || exit 1
 
 # Start app
-CMD streamlit run app.py --server.port=$PORT --server.address=0.0.0.0
+CMD python download_models.py && streamlit run app.py --server.port=$PORT --server.address=0.0.0.0

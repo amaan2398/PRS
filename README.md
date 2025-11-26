@@ -1,5 +1,8 @@
 # Ebuss Sentiment-Enhanced Recommendation System
 
+- 🚀 **Deployed App:** [https://quiet-cove-96035-14ffb6e5a72f.herokuapp.com/](https://quiet-cove-96035-14ffb6e5a72f.herokuapp.com/)
+- 📂 **GitHub Repo:** [https://github.com/amaan2398/PRS](https://github.com/amaan2398/PRS)
+
 ## Overview
 
 Ebuss is a hybrid product recommendation system designed to improve user experience by combining **User-User Collaborative Filtering** with **Sentiment Analysis**.

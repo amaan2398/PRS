@@ -1,107 +1,71 @@
-# Ebuss - A Sentiment-Based Product Recommendation System
+# Ebuss Sentiment-Enhanced Recommendation System
 
-## Problem Statement
+## Overview
 
-The e-commerce business is quite popular today. Here, you do not need to take orders by going to each customer. A company launches its website to sell the items to the end consumer, and customers can order the products that they require from the same website. Famous examples of such e-commerce companies are Amazon, Flipkart, Myntra, Paytm and Snapdeal.
+Ebuss is a hybrid product recommendation system designed to improve user experience by combining **User-User Collaborative Filtering** with **Sentiment Analysis**.
 
-Suppose you are working as a Machine Learning Engineer in an e-commerce company named 'Ebuss'. Ebuss has captured a huge market share in many fields, and it sells the products in various categories such as household essentials, books, personal care products, medicines, cosmetic items, beauty products, electrical appliances, kitchen and dining products and health care products.
+The system recommends products based on:
 
-With the advancement in technology, it is imperative for Ebuss to grow quickly in the e-commerce market to become a major leader in the market because it has to compete with the likes of Amazon, Flipkart, etc., which are already market leaders.
-
-Build a model that will improve the recommendations given to the users given their past reviews and ratings.
+1.  **Collaborative Filtering**: Identifying products liked by users with similar rating patterns (Adjusted Cosine Similarity).
+2.  **Sentiment Analysis**: Filtering and ranking these recommendations based on the sentiment of their reviews (Positive/Negative).
 
 ## Project Structure
 
 ```
-├── data/
-│   ├── raw/
-│   │   ├── dataset.csv
-│   │   └── Data+Attribute+Description.csv
+d:\Projects\PRS\
+├── app.py                      # Main Streamlit application entry point
+├── config.json                 # Configuration file
+├── recommenders/               # Recommendation logic
+│   ├── user_based.py           # User-User CF implementation (Active)
+│   └── item_based.py           # Item-Item CF implementation (Legacy)
+├── sentiment/                  # Sentiment analysis logic
+│   └── analyzer.py             # Sentiment Analyzer using Logistic Regression
+├── utils/                      # Utility functions
+│   └── data_file_manager.py    # Data loading and saving
+├── transformers/               # Custom Scikit-learn transformers
+├── models/                     # Pre-trained ML models (Pickle files)
+├── data/                       # Dataset directory
 │   └── processed/
-│       ├── df_cleaned.csv
-│       └── df_final.csv
-├── notebooks/
-│   ├── 01_data_cleaning.ipynb
-│   ├── 02_data_exploration.ipynb
-│   ├── 03_data_preprocessing.ipynb
-│   ├── 04_sentiment_model_building.ipynb
-│   ├── 05_recommendation_model_building.ipynb
-│   └── notebook_setup.py # Setup notebook environment for running notebooks
-├── app.py
-├── models/
-│   ├── __init__.py
-│   └── recommendation_model.py
-├── config/
-│   ├── __init__.py
-│   └── manager.py
-├── utils/
-│   ├── __init__.py
-│   └── data_file_manager.py
-├── preprocessing/
-│   ├── imputers/
-│   │   ├── __init__.py
-│   │   ├── category_first_imputer.py
-│   │   └── category_frequency_imputer.py
-│   ├── nlp/
-│   │   ├── __init__.py
-│   │   ├── nlp_engine.py
-│   │   └── text_processing.py
-├── .gitignore
-├── LICENSE
-└── README.md
+│       └── df_final.csv        # Final processed dataset
+└── notebooks/                  # Jupyter notebooks for training and analysis
 ```
 
-## Getting Started
+## Key Features
 
-### Prerequisites
+- **Hybrid Pipeline**: Combines the breadth of Collaborative Filtering with the quality assurance of Sentiment Analysis.
+- **User-User CF**: Uses Adjusted Cosine Similarity to account for user rating bias.
+- **Sentiment Filtering**: Re-ranks products to ensure highly-rated items also have positive textual reviews.
+- **Interactive UI**: Built with Streamlit, allowing dynamic configuration of recommendation parameters.
 
-- Python 3.12 or later
-- [uv](https://github.com/astral-sh/uv) installed
+## Setup and Usage
 
-### Installation
+1.  **Install Dependencies**:
+    Ensure you have the required Python packages installed (pandas, numpy, streamlit, scikit-learn, xgboost, lightgbm).
 
-1.  Clone the repository:
-    ```sh
-    git clone https://github.com/your-username/PRS.git
-    ```
-2.  Navigate to the project directory:
-    ```sh
-    cd PRS
-    ```
-3.  Install dependencies using `uv`. This project uses separate environments for notebooks and the application.
+2.  **Run the Application**:
 
-    **For the Notebook Environment (Research & Experimentation):**
-
-    ```sh
-    uv sync --group notebook
+    ```bash
+    streamlit run app.py
     ```
 
-    **For the Application Environment (Frontend & Backend):**
+3.  **Using the App**:
+    - Select a **Username** from the sidebar.
+    - Adjust the **Number of products from CF (k)** slider to control the candidate pool size.
+    - Adjust the **Final recommendations (n)** slider to control how many top products to display.
+    - Click **Get Recommendations**.
 
-    ```sh
-    uv sync --group app
-    ```
+## Models
 
-## Running Notebooks
+The system uses the following pre-trained models located in `models/`:
 
-To start the Jupyter Notebook server, make sure you have synced the `notebook` group, then use:
+- `recommendation/user_similarity_full.pkl`: User-User similarity matrix.
+- `recommendation/user_item_matrix_full.pkl`: User-Item rating matrix.
+- `best_model.pkl`: Logistic Regression model for sentiment classification.
+- `feature_pipeline.pkl`: TF-IDF and feature engineering pipeline.
 
-```sh
-uv run --group notebook jupyter notebook
-```
+## Notebooks
 
-## Running the application
+The `notebooks/` directory contains the research and training code:
 
-To run the FastAPI application, make sure you have synced the `app` group, then use:
-
-```sh
-uv run uvicorn src.main:app --reload
-```
-
-<!-- ## Running Tests
-
-To run the tests, use the following command:
-
-```sh
-uv run python -m unittest discover tests
-``` -->
+- `03_feature_extraction_and_sentiment_model.ipynb`: Sentiment model training and evaluation.
+- `04_recommendation_system.ipynb`: Collaborative filtering model development and comparison.
